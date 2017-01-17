@@ -1,9 +1,0 @@
-# compile vhdl design source files
-vhdl xil_defaultlib  "../../../../src/ProgramCounter.vhd"
-vhdl xil_defaultlib  "../../../../src/PC_MUX.vhd"
-vhdl xil_defaultlib  "../../../../src/prog_rom.vhd"
-vhdl xil_defaultlib  "../../../../src/PCWrapper.vhd"
-vhdl xil_defaultlib  "../../../../sim/PCWrapper_tb.vhd"
-
-# Do not sort compile order
-nosort
