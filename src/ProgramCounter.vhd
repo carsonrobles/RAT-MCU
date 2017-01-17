@@ -1,3 +1,12 @@
+----------------------------------------------------------------------------------
+--
+-- Engineer: Carson Robles, Jacob Butler
+--
+-- Create Date: 01/11/2017 11:20:13 AM
+-- Module Name: ProgramCounter - Behavioral
+-- Description: PC for the RAT MCU, indicates address of current instruction
+--
+----------------------------------------------------------------------------------
 
 library ieee;
 use ieee.std_logic_1164.all;
@@ -11,7 +20,7 @@ entity ProgramCounter is
         PC_INC   : in  std_logic;
         RST      : in  std_logic;
         clk      : in  std_logic;
-        
+
         PC_COUNT : out std_logic_vector (9 downto 0)
     );
 end ProgramCounter;
