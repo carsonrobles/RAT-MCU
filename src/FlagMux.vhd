@@ -2,9 +2,9 @@
 -- Company: 
 -- Engineer: 
 -- 
--- Create Date: 01/11/2017 11:27:46 AM
+-- Create Date: 02/22/2017 11:43:43 AM
 -- Design Name: 
--- Module Name: PC_MUX - Behavioral
+-- Module Name: FlagMux - Behavioral
 -- Project Name: 
 -- Target Devices: 
 -- Tool Versions: 
@@ -31,23 +31,20 @@ use IEEE.STD_LOGIC_1164.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity PC_MUX is
-    Port ( FROM_IMMED : in STD_LOGIC_VECTOR (9 downto 0);
-           FROM_STACK : in STD_LOGIC_VECTOR (9 downto 0);
-           MUX_SEL : in STD_LOGIC_VECTOR (1 downto 0);
-           Dout : out STD_LOGIC_VECTOR (9 downto 0));
-end PC_MUX;
+entity FlagMux is
+    Port ( INPUT  : in  STD_LOGIC; --flag input from ALU
+           SHADOW : in  STD_LOGIC; --flag input from shadow
+           SEL    : in  STD_LOGIC := '0'; --chooses which flag input to load
+           F_IN   : out STD_LOGIC := '0'); --flag input being loaded
+end FlagMux;
 
-architecture Behavioral of PC_MUX is
-
-    signal interrupt : std_logic_vector (9 downto 0) := "1111111111";
+architecture Behavioral of FlagMux is
 
 begin
 
-    with MUX_SEL select
-        Dout <= FROM_IMMED when "00",
-                FROM_STACK when "01",
-                interrupt  when "10",
-                (others => '0') when others;
+with SEL select
+    F_IN <= INPUT  when '0',
+            SHADOW when '1',
+            '0'    when others;
 
 end Behavioral;

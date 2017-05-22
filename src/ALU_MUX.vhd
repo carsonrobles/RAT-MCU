@@ -31,23 +31,22 @@ use IEEE.STD_LOGIC_1164.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity PC_MUX is
-    Port ( FROM_IMMED : in STD_LOGIC_VECTOR (9 downto 0);
-           FROM_STACK : in STD_LOGIC_VECTOR (9 downto 0);
-           MUX_SEL : in STD_LOGIC_VECTOR (1 downto 0);
-           Dout : out STD_LOGIC_VECTOR (9 downto 0));
-end PC_MUX;
+entity ALU_MUX is
+    Port ( DY_OUT     : in  STD_LOGIC_VECTOR (7 downto 0);
+           FROM_IMMED : in  STD_LOGIC_VECTOR (7 downto 0);
+           MUX_SEL    : in  STD_LOGIC;
+           Dout       : out STD_LOGIC_VECTOR (7 downto 0));
+end ALU_MUX;
 
-architecture Behavioral of PC_MUX is
+architecture Behavioral of ALU_MUX is
 
-    signal interrupt : std_logic_vector (9 downto 0) := "1111111111";
+    --signal interrupt : std_logic_vector (9 downto 0) := "1111111111";
 
 begin
 
     with MUX_SEL select
-        Dout <= FROM_IMMED when "00",
-                FROM_STACK when "01",
-                interrupt  when "10",
-                (others => '0') when others;
+        Dout <= DY_OUT when '0',
+                FROM_IMMED when '1',
+                x"00" when others;
 
 end Behavioral;

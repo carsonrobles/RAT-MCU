@@ -2,9 +2,9 @@
 -- Company: 
 -- Engineer: 
 -- 
--- Create Date: 01/11/2017 11:27:46 AM
+-- Create Date: 11/09/2016 10:30:26 AM
 -- Design Name: 
--- Module Name: PC_MUX - Behavioral
+-- Module Name: Clk_Div_2 - Behavioral
 -- Project Name: 
 -- Target Devices: 
 -- Tool Versions: 
@@ -31,23 +31,23 @@ use IEEE.STD_LOGIC_1164.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity PC_MUX is
-    Port ( FROM_IMMED : in STD_LOGIC_VECTOR (9 downto 0);
-           FROM_STACK : in STD_LOGIC_VECTOR (9 downto 0);
-           MUX_SEL : in STD_LOGIC_VECTOR (1 downto 0);
-           Dout : out STD_LOGIC_VECTOR (9 downto 0));
-end PC_MUX;
+entity clk_div2 is
+    Port ( CLK     : in  STD_LOGIC;
+           sclk : out STD_LOGIC);
+end clk_div2;
 
-architecture Behavioral of PC_MUX is
+architecture Behavioral of clk_div2 is
 
-    signal interrupt : std_logic_vector (9 downto 0) := "1111111111";
-
+   signal sclk_sig : std_logic := '0';
+   
 begin
-
-    with MUX_SEL select
-        Dout <= FROM_IMMED when "00",
-                FROM_STACK when "01",
-                interrupt  when "10",
-                (others => '0') when others;
-
+   proc: process(CLK)
+   begin
+      if (rising_edge(CLK)) then
+         sclk_sig <= NOT sclk_sig;
+      end if;   
+   end process proc;
+   
+   sclk <= sclk_sig;
+  
 end Behavioral;

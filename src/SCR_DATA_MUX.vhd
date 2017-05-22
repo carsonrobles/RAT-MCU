@@ -21,33 +21,27 @@
 
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
-
--- Uncomment the following library declaration if using
--- arithmetic functions with Signed or Unsigned values
---use IEEE.NUMERIC_STD.ALL;
+use IEEE.NUMERIC_STD.ALL;
 
 -- Uncomment the following library declaration if instantiating
 -- any Xilinx leaf cells in this code.
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity PC_MUX is
-    Port ( FROM_IMMED : in STD_LOGIC_VECTOR (9 downto 0);
-           FROM_STACK : in STD_LOGIC_VECTOR (9 downto 0);
-           MUX_SEL : in STD_LOGIC_VECTOR (1 downto 0);
-           Dout : out STD_LOGIC_VECTOR (9 downto 0));
-end PC_MUX;
+entity SCR_MUX2 is
+    Port ( DX_OUT   : in  STD_LOGIC_VECTOR (7 downto 0);
+           PC_COUNT : in  STD_LOGIC_VECTOR (9 downto 0);
+           MUX_SEL  : in  STD_LOGIC;
+           Dout     : out STD_LOGIC_VECTOR (9 downto 0));
+end SCR_MUX2;
 
-architecture Behavioral of PC_MUX is
-
-    signal interrupt : std_logic_vector (9 downto 0) := "1111111111";
+architecture Behavioral of SCR_MUX2 is
 
 begin
 
     with MUX_SEL select
-        Dout <= FROM_IMMED when "00",
-                FROM_STACK when "01",
-                interrupt  when "10",
+        Dout <= "00" & DX_OUT   when '0',
+                PC_COUNT        when '1',
                 (others => '0') when others;
 
 end Behavioral;
